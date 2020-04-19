@@ -110,7 +110,7 @@ WantedBy=multi-user.target
 Start, Reload Daemon $ Enable nexus service 
 ```sh
 systemctl daemon-reload
-systemctl enable nexus.service
+systemctl start nexus.service
 systemctl enable nexus.service
 ```
  
