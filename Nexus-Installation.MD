@@ -14,8 +14,8 @@ root soft memlock unlimited
 root hard memlock unlimited
 root - nofile 65536
 root - nproc 4096
-sonar - nofile 65536
-sonar - nproc 4096
+nexus - nofile 65536
+nexus - nproc 4096
 ```
 
 Update file with below entry  "/etc/sysctl.conf"
@@ -81,7 +81,39 @@ Validate VMoption Configuration vim /opt/nexus/bin/nexus.vmoptions
 -Djava.io.tmpdir=../sonartype-work/nexus3/tmp
 -Dkaraf.startLocalConsole=false
 ```
+We need to modify the “nexus-default.properties” file.
+```sh
+vim /opt/nexus/etc/nexus-default.properties
+```
 
+Set Nexus as a System Service
+```sh
+vim /etc/systemd/system/nexus.service
+``` 
+ ```sh
+ [Unit]
+Description=Nexus Service
+After=syslog.target network.target
+
+[Service]
+Type=forking
+LimitNOFILE=65536
+ExecStart=/opt/nexus/bin/nexus start
+ExecStop=/opt/nexus/bin/nexus stop
+User=nexus
+Group=nexus
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+```
+Start, Reload Daemon $ Enable nexus service 
+```sh
+systemctl daemon-reload
+systemctl enable nexus.service
+systemctl enable nexus.service
+```
+ 
 Login nexus server from browser on port 8081
 ```sh
 http://<Nexus_server>:8081
