@@ -57,3 +57,25 @@ service is not starting?
 
 Unable to access nexus URL?
 - make sure port 8081 is opened in security group. 
+
+Add the following For Troubleshooting 
+```sh
+vi /etc/security/limits.conf
+```
+```sh
+root soft memlock unlimited
+root hard memlock unlimited
+root - nofile 65536
+root - nproc 4096
+sonar - nofile 65536
+sonar - nproc 4096
+```
+```sh
+vi  /etc/sysctl.conf
+```
+```sh
+fs.file-max = 2097152
+vm.max_map_count = 262144
+vm.swappiness = 1
+```
+
