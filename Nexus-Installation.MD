@@ -1,19 +1,17 @@
 # Nexus Installation
 Nexus is one a artifact repository which helps to store your build outcomes.  
 
-### Follow this article in **[Youtube]()
-### Prerequisites
+# Follow this article in **[Youtube]()
+Prerequisites
+1. Make Sure You Have Java Installed (Refer To Java Requirement On Official Website)
 
-1. EC2 instance with java 
-
-### Implementation steps 
-
+# Implementation steps 
 Download and setup nexus stable version
 ```sh 
 cd /opt
-wget https://sonatype-download.global.ssl.fastly.net/nexus/3/nexus-3.0.2-02-unix.tar.gz
-tar -zxvf  nexus-3.0.2-02-unix.tar.gz
-mv /opt/nexus-3.0.2-02 /opt/nexus
+wget http://download.sonatype.com/nexus/3/latest-unix.tar.gz
+tar -zxvf  latest-unix.tar.gz
+mv /opt/latest-unix.tar.gz /opt/nexus
 ```
 
 As a good security practice, it is not advised to run nexus service as root. so create new user called nexus and grant sudo access to manage nexus services 
@@ -48,9 +46,7 @@ Use default credentials to login
 username : admin  
 password : admin123
 
-
-### Troubleshooting
-
+#Troubleshooting
 service is not starting?
  - make sure you are trying to start service with nexus user. 
 - check java installation
