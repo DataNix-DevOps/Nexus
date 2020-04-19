@@ -43,10 +43,10 @@ Login nexus server from browser on port 8081
 http://<Nexus_server>:8081
 
 Use default credentials to login 
-
+```sh
 username : admin  
 password : admin123
-
+```
 #Troubleshooting
 service is not starting?
  - make sure you are trying to start service with nexus user. 
