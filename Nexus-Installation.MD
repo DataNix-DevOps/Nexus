@@ -5,6 +5,26 @@ Follow this article in **[Youtube]()
 
 Prerequisites
 1. Make Sure You Have Java Installed (Refer To Java Requirement On Official Website)
+2. Validate Below Files 
+
+Update File With Below Entry "/etc/security/limits.conf"
+
+```sh
+root soft memlock unlimited
+root hard memlock unlimited
+root - nofile 65536
+root - nproc 4096
+sonar - nofile 65536
+sonar - nproc 4096
+```
+
+Update file with below entry  "/etc/sysctl.conf"
+
+```sh
+fs.file-max = 2097152
+vm.max_map_count = 262144
+vm.swappiness = 1
+```
 
 # Implementation steps 
 Download and setup nexus stable version
@@ -41,6 +61,26 @@ Login as a nexus user and start service
 su - nexus
 service nexus start
 ```
+Validate VMoption Configuration vim /opt/nexus/bin/nexus.vmoptions
+
+```sh
+-Xms2703m
+-Xmx2703m
+-XX:MaxDirectMemorySize=2703m
+-XX:+UnlockDiagnosticVMOptions
+-XX:+LogVMOutput
+-XX:LogFile=../sonartype-work/nexus3/log/jvm.log
+-XX:-OmitStackTraceInFastThrow
+-Djava.net.preferIPv4Stack=true
+-Dkaraf.home=.
+-Dkaraf.base=.
+-Dkaraf.etc=etc/karaf
+-Djava.util.logging.config.file=etc/karaf/java.util.logging.properties
+-Dkaraf.data=../nexusdata/nexus3
+-Dkaraf.log=../sonartype-work/nexus3/log
+-Djava.io.tmpdir=../sonartype-work/nexus3/tmp
+-Dkaraf.startLocalConsole=false
+```
 
 Login nexus server from browser on port 8081
 ```sh
@@ -61,24 +101,4 @@ password : "/opt/sonatype-work/nexus3/admin.password"
 Unable to access nexus URL?
 - make sure port 8081 is opened in security group. 
 
-Add the following For Troubleshooting 
-
-Update File With Below Entry "/etc/security/limits.conf"
-
-```sh
-root soft memlock unlimited
-root hard memlock unlimited
-root - nofile 65536
-root - nproc 4096
-sonar - nofile 65536
-sonar - nproc 4096
-```
-
-Update file with below entry  "/etc/sysctl.conf"
-
-```sh
-fs.file-max = 2097152
-vm.max_map_count = 262144
-vm.swappiness = 1
-```
 
