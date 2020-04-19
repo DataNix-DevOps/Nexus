@@ -8,14 +8,16 @@ Prerequisites
 
 # Implementation steps 
 Download and setup nexus stable version
+
 ```sh 
 cd /opt
-wget http://download.sonatype.com/nexus/3/latest-unix.tar.gz
+wget https://download.sonatype.com/nexus/3/latest-unix.tar.gz
 tar -zxvf  latest-unix.tar.gz
 mv /opt/latest-unix.tar.gz /opt/nexus
 ```
 
 As a good security practice, it is not advised to run nexus service as root. so create new user called nexus and grant sudo access to manage nexus services 
+
 ```sh 
 sudo adduser nexus
 # visudo \\ nexus   ALL=(ALL)       NOPASSWD: ALL
@@ -23,6 +25,7 @@ sudo chown -R nexus:nexus /opt/nexus
 ```
 
 Open /opt/nexus/bin/nexus.rc file, uncomment run_as_user parameter and set it as following.
+
 ```sh 
 vi /opt/nexus/bin/nexus.rc
 run_as_user="nexus" (file shold have only this line)
@@ -33,6 +36,7 @@ Add nexus as a service at boot time
 sudo ln -s /opt/nexus/bin/nexus /etc/init.d/nexus
 ```
 Login as a nexus user and start service
+
 ```sh
 su - nexus
 service nexus start
@@ -42,23 +46,25 @@ Login nexus server from browser on port 8081
 ```sh
 http://<Nexus_server>:8081
 ```
-Use default credentials to login 
+The path to default password will be provided such as "/opt/sonatype-work/nexus3/admin.password"
+
 ```sh
 username : admin  
-password : admin123
+password : "/opt/sonatype-work/nexus3/admin.password"
 ```
 #Troubleshooting
-service is not starting?
- - make sure you are trying to start service with nexus user. 
+
+#service is not starting?
+- make sure you are trying to start service with nexus user. 
 - check java installation
 
 Unable to access nexus URL?
 - make sure port 8081 is opened in security group. 
 
 Add the following For Troubleshooting 
-```sh
-vi /etc/security/limits.conf
-```
+
+Update File With Below Entry "/etc/security/limits.conf"
+
 ```sh
 root soft memlock unlimited
 root hard memlock unlimited
@@ -67,9 +73,9 @@ root - nproc 4096
 sonar - nofile 65536
 sonar - nproc 4096
 ```
-```sh
-vi  /etc/sysctl.conf
-```
+
+Update file with below entry  "/etc/sysctl.conf"
+
 ```sh
 fs.file-max = 2097152
 vm.max_map_count = 262144
