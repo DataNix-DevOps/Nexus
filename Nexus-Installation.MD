@@ -1,7 +1,6 @@
 # Nexus Installation
 Nexus is one a artifact repository which helps to store your build outcomes.  
 
-Follow this article in **[Youtube]()
 
 Prerequisites
 1. Make Sure You Have Java Installed (Refer To Java Requirement On Official Website)
