@@ -31,26 +31,39 @@ Download and setup nexus stable version
 
 ```sh 
 cd /opt
+```
+```sh 
 wget https://download.sonatype.com/nexus/3/latest-unix.tar.gz
+```
+UNtar Nexus Latest Package
+```sh 
 tar -zxvf  latest-unix.tar.gz
+```
+
+Rename UNtar File To "nexus"  in "/opt/nexus" 
+
+```sh 
 mv /opt/latest-unix.tar.gz /opt/nexus
 ```
 
 As a good security practice, it is not advised to run nexus service as root. so create new user called nexus and grant sudo access to manage nexus services 
 
+Create nexus service account 
 ```sh 
-sudo adduser nexus
-# visudo \\ nexus   ALL=(ALL)       NOPASSWD: ALL
+useradd nexus
+```
+As root Change Ownership Of File to nexus  like below:
+```sh 
 sudo chown -R nexus:nexus /opt/nexus
 ```
-
-Open /opt/nexus/bin/nexus.rc file, uncomment run_as_user parameter and set it as following.
+Edit and uncomment below file to run as nexus
 
 ```sh 
 vi /opt/nexus/bin/nexus.rc
-run_as_user="nexus" (file shold have only this line)
 ```
-
+```sh 
+run_as_user="nexus" (file shold have only this line and dont forget to uncomment "remove #")
+```
 Add nexus as a service at boot time
 ```sh
 sudo ln -s /opt/nexus/bin/nexus /etc/init.d/nexus
@@ -61,7 +74,10 @@ Login as a nexus user and start service
 su - nexus
 service nexus start
 ```
-Validate VMoption Configuration vim /opt/nexus/bin/nexus.vmoptions
+Validate VMoption Configuration 
+```sh 
+vim /opt/nexus/bin/nexus.vmoptions
+```
 
 ```sh
 -Xms2703m
@@ -81,12 +97,13 @@ Validate VMoption Configuration vim /opt/nexus/bin/nexus.vmoptions
 -Djava.io.tmpdir=../sonartype-work/nexus3/tmp
 -Dkaraf.startLocalConsole=false
 ```
-We need to modify the “nexus-default.properties” file.
+Modify nexus-default.properties file.
+
 ```sh
 vim /opt/nexus/etc/nexus-default.properties
 ```
-
 Set Nexus as a System Service
+
 ```sh
 vim /etc/systemd/system/nexus.service
 ``` 
