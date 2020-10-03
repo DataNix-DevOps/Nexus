@@ -51,9 +51,10 @@ Create nexus service account
 ```sh 
 useradd nexus
 ```
-As root Change Ownership Of File to nexus  like below:
+As root Change Ownership Of the two files extracted  to nexus  like below "nexus" and "sonatype-work":
 ```sh 
 sudo chown -R nexus:nexus /opt/nexus
+sudo chown -R nexus:nexus /opt/sonartype-work
 ```
 Edit and uncomment below file to run as nexus
 
