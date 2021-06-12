@@ -54,7 +54,7 @@ useradd nexus
 As root Change Ownership Of the two files extracted  to nexus  like below "nexus" and "sonatype-work":
 ```sh 
 sudo chown -R nexus:nexus /opt/nexus
-sudo chown -R nexus:nexus /opt/sonartype-work
+sudo chown -R nexus:nexus /opt/sonatype-work
 ```
 Edit and uncomment below file to run as nexus
 
